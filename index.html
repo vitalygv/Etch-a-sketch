@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Etch-e-sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+    </div>
+</body>
+<script>
+    function createGrid() {
+        for (i = 0; i <= 255; i++) {
+            const container = document.querySelector('.container');
+            let gridDiv = document.createElement('div');
+            gridDiv.classList.add('gridDivs');
+            container.appendChild(gridDiv);
+        }
+    }
+
+    createGrid();
+
+    const grid = Array.from(document.querySelectorAll('div.gridDivs'));
+    grid.forEach((gridElement) => {
+        gridElement.addEventListener('mouseenter', () => {
+            gridElement.classList.add('colorGrid');
+            console.log(gridElement);
+        })
+    })
+</script>
+
+</html>
