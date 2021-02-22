@@ -8,29 +8,58 @@
 </head>
 
 <body>
-    <div class="container">
-
+    <div class="buttons">
+        <button class="button" id="reset">Reset</button>
+        <button class="button" id="gridSize">Grid size</button>
     </div>
-</body>
-<script>
-    function createGrid() {
-        for (i = 0; i <= 255; i++) {
-            const container = document.querySelector('.container');
-            let gridDiv = document.createElement('div');
-            gridDiv.classList.add('gridDivs');
-            container.appendChild(gridDiv);
+
+    <div class="container"></div>
+
+    <script>
+        const container = document.querySelector('.container');
+
+        function createGrid(gridSize) {
+            let gridSizeSq = gridSize ** 2;
+            container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+            for (i = 0; i < gridSizeSq; i++) {
+                const gridDiv = document.createElement('div');
+                gridDiv.classList.add('gridDivs');
+                gridDiv.addEventListener('mouseenter', () => {
+                    gridDiv.classList.add('colorGrid');
+                })
+                container.appendChild(gridDiv);
+            }
         }
-    }
 
-    createGrid();
+        function removeGrid() {
+            while (container.firstChild) {
+                container.removeChild(container.lastChild);
+            }
+        }
 
-    const grid = Array.from(document.querySelectorAll('div.gridDivs'));
-    grid.forEach((gridElement) => {
-        gridElement.addEventListener('mouseenter', () => {
-            gridElement.classList.add('colorGrid');
-            console.log(gridElement);
+        createGrid(16); //create basic grid
+
+        const resetBtn = document.querySelector('#reset');
+
+        console.log(resetBtn);
+        resetBtn.addEventListener("click", () => {
+            removeGrid();
+            createGrid(16);
+        });
+
+        const gridSizeBtn = document.querySelector('#gridSize');
+
+        gridSizeBtn.addEventListener('click', () => {
+            let gridInput = prompt('Enter grid size up to 100');
+            if (gridInput > 100) {
+                alert("Max grid size 100")
+            }
+            else {
+                removeGrid();
+                createGrid(gridInput);
+            }
         })
-    })
-</script>
+    </script>
+</body>
 
 </html>
