@@ -45,11 +45,9 @@
         createGrid(16);
 
         const resetBtn = document.querySelector('#reset');
-
         resetBtn.addEventListener("click", () => resetGrid(16));
 
         const gridSizeBtn = document.querySelector('#gridSize');
-
         gridSizeBtn.addEventListener('click', () => {
             const gridInput = prompt('Enter grid size up to 100');
             gridInput > 100 ? alert("Max grid size 100") : resetGrid(gridInput);
