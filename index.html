@@ -16,48 +16,43 @@
     <div class="container"></div>
 
     <script>
-        const container = document.querySelector('.container');
+        const CONTAINER = document.querySelector('.container');
 
         function createGrid(gridSize) {
-            let gridSizeSq = gridSize ** 2;
-            container.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+            const gridSizeSq = gridSize ** 2;
+            CONTAINER.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
             for (i = 0; i < gridSizeSq; i++) {
                 const gridDiv = document.createElement('div');
                 gridDiv.classList.add('gridDivs');
                 gridDiv.addEventListener('mouseenter', () => {
                     gridDiv.classList.add('colorGrid');
                 })
-                container.appendChild(gridDiv);
+                CONTAINER.appendChild(gridDiv);
             }
         }
 
         function removeGrid() {
-            while (container.firstChild) {
-                container.removeChild(container.lastChild);
+            while (CONTAINER.firstChild) {
+                CONTAINER.removeChild(CONTAINER.lastChild);
             }
         }
 
-        createGrid(16); //create basic grid
+        function resetGrid(gridSize) {
+            removeGrid();
+            createGrid(gridSize);
+        }
+
+        createGrid(16);
 
         const resetBtn = document.querySelector('#reset');
 
-        console.log(resetBtn);
-        resetBtn.addEventListener("click", () => {
-            removeGrid();
-            createGrid(16);
-        });
+        resetBtn.addEventListener("click", () => resetGrid(16));
 
         const gridSizeBtn = document.querySelector('#gridSize');
 
         gridSizeBtn.addEventListener('click', () => {
-            let gridInput = prompt('Enter grid size up to 100');
-            if (gridInput > 100) {
-                alert("Max grid size 100")
-            }
-            else {
-                removeGrid();
-                createGrid(gridInput);
-            }
+            const gridInput = prompt('Enter grid size up to 100');
+            gridInput > 100 ? alert("Max grid size 100") : resetGrid(gridInput);
         })
     </script>
 </body>
